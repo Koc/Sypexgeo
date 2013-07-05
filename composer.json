@@ -1,0 +1,15 @@
+{
+    "name": "zapimir/sypexgeo",
+    "description": "Ultra Fast GeoIP Library",
+    "license": "BSD",
+    "authors": [
+        {
+            "name": "zapimir",
+            "email": "zapimir@zapimir.net"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+
+    }
+}
