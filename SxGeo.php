@@ -28,6 +28,8 @@ class SxGeo {
 	protected $db;
 	protected $regions_db;
 	protected $cities_db;
+    protected $city;
+
 	public $cc2iso = array(
 		'', 'AP', 'EU', 'AD', 'AE', 'AF', 'AG', 'AI', 'AL', 'AM', 'AN', 'AO', 'AQ',
 		'AR', 'AS', 'AT', 'AU', 'AW', 'AZ', 'BA', 'BB', 'BD', 'BE', 'BF', 'BG', 'BH',
