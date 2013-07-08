@@ -13,6 +13,9 @@
         "php": ">=5.2"
     },
     "autoload": {
-        "classmap": ["SxGeo.php"]
+        "classmap": ["SxGeo.php"],
+        "psr-0": {
+            "SxGeo\\": [""]
+        }
     }
 }
