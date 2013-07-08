@@ -233,7 +233,9 @@ class SxGeo {
 				$region = explode("\0", fread($this->fh, $this->max_region));
 			}
 			$this->city['region_name'] = $region[0];
-			$this->city['timezone'] = $tz[$region[1]];
+			$this->city['timezone'] = '';
+			//FIXME
+			//$this->city['timezone'] = $tz[$region[1]];
 		}
 		else{
 			$this->city['region_name'] = '';
