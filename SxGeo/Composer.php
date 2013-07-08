@@ -46,8 +46,12 @@ class Composer
                 $event->getIO()->write(sprintf('<error>Unknown database "%s"</error>', $database));
             }
 
-            copy($databases[$database], $targetDir.'/'.basename($databases[$database]));
-            $event->getIO()->write(sprintf('Installed "%s"', $database));
+
+            $basename = basename($databases[$database]);
+            $tmpFile = $targetDir . '/' . $basename . '.tmp';
+            copy($databases[$database], $tmpFile);
+            rename($tmpFile, $targetDir . '/' . $basename);
+            $event->getIO()->write(sprintf('Installed "%s" database', $database));
         }
     }
 }
