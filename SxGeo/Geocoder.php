@@ -189,7 +189,7 @@ class Geocoder
         return null;
     }
 
-    protected function search_idx($ipn, $min, $max)
+    protected function searchIdx($ipn, $min, $max)
     {
         if ($this->batchMode) {
             while ($max - $min > 8) {
@@ -220,18 +220,20 @@ class Geocoder
 
     protected function searchDb($str, $ipn, $min, $max)
     {
-        if ($max - $min <= 0) {
-            return hexdec(bin2hex(substr($str, $min * $this->blockLength + 3, 3)));
-        }
-
-        $ipn = substr($ipn, 1);
-        while ($max - $min > 8) {
-            $offset = ($min + $max) >> 1;
-            if ($ipn > substr($str, $offset * $this->blockLength, 3)) {
-                $min = $offset;
-            } else {
-                $max = $offset;
+        if ($max - $min > 0) {
+            $ipn = substr($ipn, 1);
+            while ($max - $min > 8) {
+                $offset = ($min + $max) >> 1;
+                if ($ipn > substr($str, $offset * $this->blockLength, 3)) {
+                    $min = $offset;
+                } else {
+                    $max = $offset;
+                }
             }
+            while ($ipn >= substr($str, $min * $this->blockLength, 3) && $min++ < $max) {
+            };
+        } else {
+            return hexdec(bin2hex(substr($str, $min * $this->blockLength + 3, 3)));
         }
 
         return hexdec(bin2hex(substr($str, $min * $this->blockLength - $this->idLength, $this->idLength)));
@@ -254,7 +256,7 @@ class Geocoder
             $blocks = unpack("Nmin/Nmax", substr($this->bIdxStr, ($ip1n - 1) * 4, 8));
         }
         // Ищем блок в основном индексе
-        $part = $this->search_idx($ipn, floor($blocks['min'] / $this->range), floor($blocks['max'] / $this->range) - 1);
+        $part = $this->searchIdx($ipn, floor($blocks['min'] / $this->range), floor($blocks['max'] / $this->range) - 1);
         // Нашли номер блока в котором нужно искать IP, теперь находим нужный блок в БД
         $min = $part > 0 ? $part * $this->range : 0;
         $max = $part > $this->mIdxLen ? $this->dbItems : ($part + 1) * $this->range;
