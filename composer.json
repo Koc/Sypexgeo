@@ -2,10 +2,15 @@
     "name": "zapimir/sypexgeo",
     "description": "Ultra Fast GeoIP Library",
     "license": "BSD",
+    "version": "3.0.0-alpha",
     "authors": [
         {
             "name": "zapimir",
             "email": "zapimir@zapimir.net"
+        },
+        {
+            "name": "Konstantin Myakshin",
+            "email": "koc-dp@yandex.ru"
         }
     ],
     "minimum-stability": "dev",
