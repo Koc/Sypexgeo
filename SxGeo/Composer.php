@@ -46,12 +46,17 @@ class Composer
                 $event->getIO()->write(sprintf('<error>Unknown database "%s"</error>', $database));
             }
 
+			$file = $targetDir . '/' . basename($databases[$database]);
+            if (is_file($file)) {
+                continue;
+            }
+            $event->getIO()->write(sprintf('Installing "%s" database', $database));
 
-            $basename = basename($databases[$database]);
-            $tmpFile = $targetDir . '/' . $basename . '.tmp';
+            //TODO: log percents via $ctx = StreamContextFactory::getContext($fileUrl, $options, array('notification' => array($this, 'callbackGet')));
+
+            $tmpFile = $file . '.tmp';
             copy($databases[$database], $tmpFile);
-            rename($tmpFile, $targetDir . '/' . $basename);
-            $event->getIO()->write(sprintf('Installed "%s" database', $database));
+            rename($tmpFile, $file);
         }
     }
 }
